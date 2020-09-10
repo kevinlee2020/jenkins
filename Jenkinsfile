@@ -11,7 +11,7 @@ pipeline {
         }
 		
 	environment {
-		registry = "kevinlee2020/jenkins"
+		registry = "klee2020/jenkins"
 		registryCredential = 'klee2020-docker'
                 dockerImage = ''
 		}
@@ -39,7 +39,7 @@ pipeline {
                }
                  
             steps {
-					script{
+		script{
                          def dockerImage= docker.build registry + ":master"
                              docker.withRegistry( '', registryCredential ) {
                              dockerImage.push()
