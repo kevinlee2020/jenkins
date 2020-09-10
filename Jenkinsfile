@@ -34,13 +34,10 @@ pipeline {
         }
                  
         stage('Build docker master') {
-            when {
-                branch 'master' 
-               }
                  
             steps {
 		script{
-                         def dockerImage= docker.build registry + ":master"
+                         def dockerImage= docker.build registry + "v:$BUILD_NUMBER"
                              docker.withRegistry( '', registryCredential ) {
                              dockerImage.push()
                               }
