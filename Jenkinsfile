@@ -71,7 +71,9 @@ pipeline {
 
       stage('Doploy images') {
         steps {
-
+          if (env.BRANCH_NAME == 'master') {
+            input "If release it?"
+            }  
 		sh "echo ${k8s_config} > ~/config" 
 	        sh 'sed -i "s/TAG/${BUILD_NUMBER}/g" helloworld.yml'
 		sh 'kubectl apply -f ./helloworld.yml'
