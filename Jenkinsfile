@@ -57,7 +57,7 @@ pipeline {
 		script{
                          def dockerImage= docker.build registry + ":$BUILD_NUMBER"
                          docker.withRegistry( '', registryCredential ) {
-                                                                          dockerImage.push()
+                         dockerImage.push()
                               }
 			 }
                   }
@@ -70,7 +70,10 @@ pipeline {
           }
 
       stage('Doploy images') {
-	steps {
+	if (env.BRANCH_NAME == 'master') {
+            input "确认要部署线上环境吗？"
+        }
+        steps {
 		sh "echo ${k8s_config} > ~/config" 
 	        sh 'sed -i "s/TAG/${BUILD_NUMBER}/g" helloworld.yml'
 		sh 'kubectl apply -f ./helloworld.yml'
