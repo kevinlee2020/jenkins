@@ -72,7 +72,6 @@ pipeline {
       stage('Doploy images') {
         when {
                 branch 'master'
-                input "If release it to PROD ENV?"
             }          
 
         steps {
