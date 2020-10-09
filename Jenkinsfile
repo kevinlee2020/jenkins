@@ -70,9 +70,11 @@ pipeline {
           }
 
       stage('Doploy images') {
-          if (env.BRANCH_NAME == 'master') {
-            input "If release it to PROD ENV?"
-            }  
+        when {
+                branch 'master'
+                input "If release it to PROD ENV?"
+            }          
+
         steps {
 		sh "mkdir -p ~/.kube"
                 sh "echo ${k8s_config} | base64 -d > ~/.kube/config"
