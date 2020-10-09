@@ -70,10 +70,10 @@ pipeline {
           }
 
       stage('Doploy images') {
-        steps {
           if (env.BRANCH_NAME == 'master') {
             input "If release it to PROD ENV?"
             }  
+        steps {
 		sh "mkdir -p ~/.kube"
                 sh "echo ${k8s_config} | base64 -d > ~/.kube/config"
 	        sh 'sed -i "s/TAG/${BUILD_NUMBER}/g" helloworld.yml'
