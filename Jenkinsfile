@@ -75,8 +75,6 @@ pipeline {
             }          
 
         steps {
-	#	sh "mkdir -p ~/.kube"
-        #        sh "echo ${k8s_config} | base64 -d > ~/.kube/config"
                 sh "echo ${k8s_config} > ~/config" 
 	        sh 'sed -i "s/TAG/${BUILD_NUMBER}/g" helloworld.yml'
 		sh 'kubectl apply -f ./helloworld.yml'
