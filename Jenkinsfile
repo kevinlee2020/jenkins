@@ -75,7 +75,7 @@ pipeline {
             }          
 
         steps {
-                sh "echo ${k8s_config} > ~/config" 
+                sh "echo ${k8s_config}  | base64 --decode > ~/.kube/config" 
 	        sh 'sed -i "s/TAG/${BUILD_NUMBER}/g" helloworld.yml'
 		sh 'kubectl apply -f ./helloworld.yml'
 		sh 'kubectl apply -f ./helloworld-nodeport-service.yml'
